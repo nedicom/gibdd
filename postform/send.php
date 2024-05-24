@@ -1,52 +1,43 @@
     <?php
-/* Здесь проверяется существование переменных */
-if (isset($_POST['myphone'])) {$myphone = $_POST['myphone'];}
+    $myphone = '01233215678';
 
- 
-/* Сюда впишите свою эл. почту */
-$myaddres  = "m6132@yandex.ru"; // кому отправляем
-//$myaddres2  = "zhurahov.ev@mail.ru"; // кому отправляем
- 
-/* А здесь прописывается текст сообщения, \n - перенос строки */
-$mes = "Тема: Заказ обратного звонка!\nТелефон: $myphone";
- 
-/* А эта функция как раз занимается отправкой письма на указанный вами email */
-$sub='Заявка'; //сабж
-$email='mail@gibdd.ru'; // от кого
-//$send = mail ($myaddres,$sub,$mes,"Content-type:text/plain; charset = utf-8\r\nFrom:$email");
-//$send = mail ($myaddres2,$sub,$mes,"Content-type:text/plain; charset = utf-8\r\nFrom:$email");
+    if (isset($_POST['myphone'])) {
+        $myphone = $_POST['myphone'];
+    }
 
-    $params = [
-        'to' => $myaddres,
-        's' => $sub,
-        'b' => $mes,
-    ];
-    $url = 'https://crm.nedicom.ru/mail/?' . http_build_query($params);
-    echo '<pre>';
+    $env = parse_ini_file('.env');
 
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_HEADER, false);
-    $html = curl_exec($ch);
-    curl_close($ch);
- 
-ini_set('short_open_tag', 'On');
-header('Refresh: 3; URL=index.html');
-?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="refresh" content="3; url=index.html">
-<title>Спасибо! Письмо отправлено юристу! Скоро мы свяжемся с вами! </title>
-<meta name="generator">
-<script type="text/javascript">
-setTimeout('location.replace("https://gibdd.nedicom.ru/")', 3000);
-/*Изменить текущий адрес страницы через 3 секунды (3000 миллисекунд)*/
-</script> 
-</head>
-<body>
-<h1>Спасибо! Мы свяжемся с вами!</h1>
-</body>
-</html>
+    $sub = 'Заявка с сайта https://gibdd.nedicom.ru/ - пьяный руль';
+
+    $conn = mysqli_connect($env['DB_MYSQLIHOST'], $env['DB_MYSQLINAME'], $env['DB_MYSQLIPASS'], $env['DB_MYSQLINAME']);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "INSERT INTO leads (source, description, phone, lawyer, created_at, responsible, status, service)
+        VALUES ('https://gibdd.nedicom.ru/', '$sub', '$myphone', 80, CURRENT_TIME(), 80, 'поступил', 11)"; //82 - данил, 11 - консультация
+    $conn->query($sql);
+
+
+    ini_set('short_open_tag', 'On');
+    header('Refresh: 3; URL=index.html');
+    ?>
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="refresh" content="3; url=index.html">
+        <title>Спасибо! Письмо отправлено юристу! Скоро мы свяжемся с вами! </title>
+        <meta name="generator">
+        <script type="text/javascript">
+            setTimeout('location.replace("https://gibdd.nedicom.ru/")', 3000);
+            /*Изменить текущий адрес страницы через 3 секунды (3000 миллисекунд)*/
+        </script>
+    </head>
+
+    <body>
+        <h1>Спасибо! Мы свяжемся с вами! </h1>
+    </body>
+
+    </html>

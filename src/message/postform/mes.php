@@ -1,52 +1,32 @@
-    <?php
-/* Здесь проверяется существование переменных */
-$mes = $_POST['mes'];
-$mes2 = $_POST['mes2'];
+<?php
 
+$conn = mysqli_connect("178.208.94.106", "crm", '904klfkFL:DlflrD4', "crm");
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-/* Сюда впишите свою эл. почту */
-$myaddres  = "m6132@yandex.ru"; // кому отправляем
-$myaddres2  = "andrey_dob_nov@mail.ru";
-/* А здесь прописывается текст сообщения, \n - перенос строки */
-$message = "Тема: $mes контакты: $mes2";
+$sql = "INSERT INTO leads (source, description, phone, lawyer, created_at, responsible, status, service)
+    VALUES ('https://gibdd.nedicom.ru/', 'sub', '0005558889', 80, CURRENT_TIME(), 80, 'поступил', 11)"; //82 - данил, 11 - консультация
+$conn->query($sql);
 
-/* А эта функция как раз занимается отправкой письма на указанный вами email */
-$sub='Данные из формы whatsapp захвата'; //сабж
-$email='mail@dobrenky.nedicom.ru'; // от кого
-//$send = mail ($myaddres,$sub,$message,"Content-type:text/plain; charset = utf-8\r\nFrom:$email");
-//$send2 = mail ($myaddres2,$sub,$message,"Content-type:text/plain; charset = utf-8\r\nFrom:$email");
+$sub = $_POST['mes'];
 
-    $params = [
-        'to' => $myaddres,
-        's' => $sub,
-        'b' => $mes,
-    ];
-    $url = 'https://crm.nedicom.ru/mail/?' . http_build_query($params);
-    echo '<pre>';
+$myphone = '01233215678';
 
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_HEADER, false);
-    $html = curl_exec($ch);
-    curl_close($ch);
+if (isset($_POST['myphone'])) {
+    $myphone = $_POST['mes2'];
+}
 
-ini_set('short_open_tag', 'On');
-header('Refresh: 3; URL=index.html');
+$env = parse_ini_file('.env');
+
+$sub = 'Заявка с сайта https://gibdd.nedicom.ru/ - пьяный руль';
+
+$conn = mysqli_connect($env['DB_MYSQLIHOST'], $env['DB_MYSQLINAME'], $env['DB_MYSQLIPASS'], $env['DB_MYSQLINAME']);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "INSERT INTO leads (source, description, phone, lawyer, created_at, responsible, status, service)
+    VALUES ('https://gibdd.nedicom.ru/', 'sub', '0005558889', 80, CURRENT_TIME(), 80, 'поступил', 11)"; //82 - данил, 11 - консультация
+$conn->query($sql);
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="refresh" content="3; url=index.html">
-<title>Письмо направлено</title>
-<meta name="generator">
-<script type="text/javascript">
-setTimeout('location.replace("https://dobrenky.nedicom.ru/")', 3000);
-/*Изменить текущий адрес страницы через 3 секунды (3000 миллисекунд)*/
-</script>
-</head>
-<body>
-<h1>Спасибо! Телефон отправлен юристу! Скоро он перезвонит!</h1>
-</body>
-</html>
