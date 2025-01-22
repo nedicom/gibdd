@@ -35,7 +35,7 @@
     $data = [
         "token" => $env['NEDICOM_CRM_TOKEN'],  
         "source" => "2",
-        "description" => "2"."Лид пришел с ".$actual_link,
+        "description" => "Лид пришел с ".$actual_link,
         "phone" => $myphone,
         "lawyer" => "2",
         "responsible" => "2",
