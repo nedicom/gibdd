@@ -26,18 +26,19 @@
 
 
     $url = "https://crm.nedicom.ru/leads/addfromreq";
-
+    $actual_link = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/json', 'Content-Type: application/json'));
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);    
 
     $data = [
-        "token" => $env['NEDICOM_CRM_TOKEN'],
+        "token" => $env['NEDICOM_CRM_TOKEN'],  
+        "source" => "2",
+        "description" => "2"."Лид пришел с ".$actual_link,
         "phone" => $myphone,
         "lawyer" => "2",
-        "responsible" => "2"
+        "responsible" => "2",
     ];
 
     $json_data = json_encode($data);
@@ -47,8 +48,6 @@
     $resp = curl_exec($curl);
     curl_close($curl);
 
-    echo $_SERVER['DOCUMENT_ROOT'];
-    echo $json_data;
     echo $resp;
 
 
