@@ -4,10 +4,10 @@
     if (isset($_POST['myphone'])) {
         $myphone = $_POST['myphone'];
     }
-/*
+
     $env = parse_ini_file('.env');
 
-    $sub = 'Заявка с сайта https://gibdd.nedicom.ru/ - пьяный руль';
+    /* $sub = 'Заявка с сайта https://gibdd.nedicom.ru/ - пьяный руль';
 
     $conn = mysqli_connect($env['DB_MYSQLIHOST'], $env['DB_MYSQLINAME'], $env['DB_MYSQLIPASS'], $env['DB_MYSQLINAME']);
     if ($conn->connect_error) {
@@ -32,16 +32,19 @@
     curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/json', 'Content-Type: application/json'));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-    $data = <<<DATA
-        {"token" : "AAFozz_uMQyJI8nedicom" , "lawyer" : "2", "responsible" : "2"}
-    DATA;
+
+    $data = [
+        "token" => $env['NEDICOM_CRM_TOKEN'],
+        "lawyer" => "2",
+        "responsible" => "2"
+    ];
+
 
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 
     $resp = curl_exec($curl);
     curl_close($curl);
 
-    echo "123";
     echo $resp;
 
 
