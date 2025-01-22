@@ -5,7 +5,7 @@
         $myphone = $_POST['myphone'];
     }
 
-    $env = parse_ini_file('.env');
+    $env = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'\.env');
 
     /* $sub = 'Заявка с сайта https://gibdd.nedicom.ru/ - пьяный руль';
 
@@ -47,6 +47,7 @@
     $resp = curl_exec($curl);
     curl_close($curl);
 
+    echo $_SERVER['DOCUMENT_ROOT'];
     echo $json_data;
     echo $resp;
 
