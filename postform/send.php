@@ -31,7 +31,7 @@
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/json', 'Content-Type: application/json'));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    echo ($env['NEDICOM_CRM_TOKEN']);
+    
 
     $data = [
         "token" => "AAFozz_uMQyJI8nedicom",
@@ -39,12 +39,15 @@
         "responsible" => "2"
     ];
 
+    $json_data = json_encode(array("user" => $data));
 
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $json_data);
 
     $resp = curl_exec($curl);
     curl_close($curl);
 
+
+    echo ($env['NEDICOM_CRM_TOKEN']);
     echo $resp;
 
 
