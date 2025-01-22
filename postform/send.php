@@ -4,7 +4,7 @@
     if (isset($_POST['myphone'])) {
         $myphone = $_POST['myphone'];
     }
-
+/*
     $env = parse_ini_file('.env');
 
     $sub = 'Заявка с сайта https://gibdd.nedicom.ru/ - пьяный руль';
@@ -20,8 +20,33 @@
 
 
     ini_set('short_open_tag', 'On');
+    
     header('Refresh: 3; URL=index.html');
+*/
+
+
+    $url = "https://crm.nedicom.ru/leads/addfromreq";
+
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/json', 'Content-Type: application/json'));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+    $data = <<<DATA
+        {"token" : "AAFozz_uMQyJI8nedicom" , "lawyer" : "2", "responsible" : "2"}
+    DATA;
+
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+    $resp = curl_exec($curl);
+    curl_close($curl);
+
+    echo "123";
+    echo $resp;
+
+
     ?>
+    <!--
     <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
     <html>
 
@@ -41,3 +66,4 @@
     </body>
 
     </html>
+-->
