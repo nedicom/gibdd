@@ -5,7 +5,7 @@
         $myphone = $_POST['myphone'];
     }
 
-    $env = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'\.env');
+    $env = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'/.env');
 
     /* $sub = 'Заявка с сайта https://gibdd.nedicom.ru/ - пьяный руль';
 
