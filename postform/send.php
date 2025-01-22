@@ -35,6 +35,7 @@
 
     $data = [
         "token" => $env['NEDICOM_CRM_TOKEN'],
+        "phone" => $myphone,
         "lawyer" => "2",
         "responsible" => "2"
     ];
@@ -47,7 +48,6 @@
     curl_close($curl);
 
     echo $json_data;
-    echo $env['NEDICOM_CRM_TOKEN'];
     echo $resp;
 
 
