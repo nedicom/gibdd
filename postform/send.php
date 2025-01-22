@@ -39,7 +39,7 @@
         "responsible" => "2"
     ];
 
-    $json_data = json_encode(array("user" => $data));
+    $json_data = json_encode($data);
 
     curl_setopt($curl, CURLOPT_POSTFIELDS, $json_data);
 
