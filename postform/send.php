@@ -31,10 +31,10 @@
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/json', 'Content-Type: application/json'));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-
+    echo ($env['NEDICOM_CRM_TOKEN']);
 
     $data = [
-        "token" => $env['NEDICOM_CRM_TOKEN'],
+        "token" => "AAFozz_uMQyJI8nedicom",
         "lawyer" => "2",
         "responsible" => "2"
     ];
