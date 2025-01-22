@@ -34,7 +34,7 @@
     
 
     $data = [
-        "token" => $env['NEDICOM_CRM_TOKEN'],
+        "token" => "AAFozz_uMQyJI8nedicom",
         "lawyer" => "2",
         "responsible" => "2"
     ];
@@ -46,6 +46,8 @@
     $resp = curl_exec($curl);
     curl_close($curl);
 
+
+    echo $env['NEDICOM_CRM_TOKEN'];
     echo $resp;
 
 
